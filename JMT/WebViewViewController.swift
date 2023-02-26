@@ -9,7 +9,7 @@ class WebViewViewController: UIViewController, WKNavigationDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.request(url: "http://www.naver.com")
+        self.request(url: "\(urlTextField)")
 
     }
 
