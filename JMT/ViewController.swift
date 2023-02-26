@@ -8,32 +8,23 @@
 import UIKit
 import GoogleSignIn
 import AuthenticationServices
-import WebKit
 
-class ViewController: UIViewController,WKUIDelegate,WKNavigationDelegate {
+class ViewController: UIViewController {
     
     @IBOutlet weak var signInView: UIView!
     
-    @IBOutlet weak var webView: WKWebView!
     
     override func loadView() {
         super.loadView()
         
-        webView = WKWebView(frame: self.view.frame)
-        webView.uiDelegate = self
-        webView.navigationDelegate = self
-        self.view = self.webView
+       
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         addButton()
         
-        let url = URL(string: "https://www.naver.com/")
-        let request = URLRequest(url: url!)
-        //self.webView?.allowsBackForwardNavigationGestures = true  //뒤로가기 제스쳐 허용
-        webView.configuration.preferences.javaScriptEnabled = true  //자바스크립트 활성화
-        webView.load(request)
+   
     }
   
     
