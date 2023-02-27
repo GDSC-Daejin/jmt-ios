@@ -56,8 +56,10 @@ class ViewController: UIViewController {
     
     
     @IBAction func googleLogin(_ sender: Any) {
+      //  846233671186-v1mirmbuqar5n0djl73cefot811vutne.apps.googleusercontent.com
+      //  com.googleusercontent.apps.846233671186-v1mirmbuqar5n0djl73cefot811vutne
         
-        let id = "625819013497-pim0dcaslvffl3umu725k4d3svts3oti.apps.googleusercontent.com"
+        let id = "846233671186-v1mirmbuqar5n0djl73cefot811vutne.apps.googleusercontent.com"
         // 여기서는 반전시키지 말고 ID값 그대로 적용한다.
         let signInConfig = GIDConfiguration(clientID: id)
         GIDSignIn.sharedInstance.signIn(with: signInConfig, presenting: self) { user, error in
