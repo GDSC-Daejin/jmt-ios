@@ -44,8 +44,8 @@ class ViewController: UIViewController {
         //let url = URL(string: "http://34.64.165.38:8080/api/v1/auth/google")! // 서버 URL
         
         // 1
-        let url = URL(string: "http://34.64.165.38:8080/api/v1/auth/google")! // 서버 URL
-    
+        let url = URL(string: "http://34.64.147.86:8080/api/v1/auth/google")! // 서버 URL
+        
         //2
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
@@ -57,8 +57,8 @@ class ViewController: UIViewController {
         let token = ["token": idToken]
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         
-       
-           // 4 json enciding 하기
+        
+        // 4 json enciding 하기
         do {
             let jsonData = try JSONSerialization.data(withJSONObject: token, options: [.prettyPrinted])
             //print("Token", String(data: jsonData, encoding: .utf8))
@@ -130,7 +130,9 @@ class ViewController: UIViewController {
             }
         }
     }
+    
 }
+
 
 
 extension ViewController : ASAuthorizationControllerDelegate  {
@@ -141,6 +143,16 @@ extension ViewController : ASAuthorizationControllerDelegate  {
             if let email = credential.email {
                 print("✉️ \(email)")
             }
+            guard let appleIDToken = credential.identityToken else {
+                print("Unable to fetch identity token.")
+                return
+            }
+            guard let idTokenString = String(data: appleIDToken, encoding: .utf8) else {
+                print("Unable to serialize token string from data: \(appleIDToken.debugDescription)")
+                return
+            }
+            // Use the ID token as needed.
+            print("Received ID token: \(idTokenString)")
         }
     }
     
@@ -148,4 +160,28 @@ extension ViewController : ASAuthorizationControllerDelegate  {
         print("error \(error)")
     }
 }
+//
+//extension AppleSignInManager: ASAuthorizationControllerDelegate {
+//    func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
+//        if let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
+//            guard let nonce = currentNonce else {
+//                fatalError("Invalid state: A login callback was received, but no login request was sent.")
+//            }
+//            guard let appleIDToken = appleIDCredential.identityToken else {
+//                print("Unable to fetch identity token.")
+//                return
+//            }
+//            guard let idTokenString = String(data: appleIDToken, encoding: .utf8) else {
+//                print("Unable to serialize token string from data: \(appleIDToken.debugDescription)")
+//                return
+//            }
+//            // Use the ID token as needed.
+//            print("Received ID token: \(idTokenString)")
+//        }
+//    }
+//
+//    func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
+//        print("Sign in with Apple errored: \(error)")
+//    }
+// }
 
