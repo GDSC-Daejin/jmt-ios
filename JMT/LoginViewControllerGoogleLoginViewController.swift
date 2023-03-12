@@ -33,6 +33,7 @@ class ViewController: UIViewController {
         }
     }
     
+    
     func addButton() {
         let button = ASAuthorizationAppleIDButton(authorizationButtonType: .signIn, authorizationButtonStyle: .black)
         button.addTarget(self, action: #selector(loginHandler), for: .touchUpInside)
@@ -50,15 +51,11 @@ class ViewController: UIViewController {
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         
-        //let postString = "idToken=\(idToken)"
-        //let token = idToken
-        
         //3
         let token = ["token": idToken]
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         
-        
-        // 4 json enciding 하기
+        // 4 json encoding 하기
         do {
             let jsonData = try JSONSerialization.data(withJSONObject: token, options: [.prettyPrinted])
             //print("Token", String(data: jsonData, encoding: .utf8))
@@ -109,8 +106,10 @@ class ViewController: UIViewController {
         controller.performRequests()
     }
     
-    let signInConfig = GIDConfiguration(clientID:  "846233671186-v1mirmbuqar5n0djl73cefot811vutne.apps.googleusercontent.com")
-    
+    let signInConfig = GIDConfiguration(clientID:  "846233671186-1ri677r59p8slvhu0ph98kg2ir0kuk45.apps.googleusercontent.com")
+   // com.googleusercontent.apps.846233671186-1ri677r59p8slvhu0ph98kg2ir0kuk45
+
+
     @IBAction func signIn(sender: Any) {
         
         GIDSignIn.sharedInstance.signIn(with: signInConfig,presenting:  self) { (user: GIDGoogleUser?, error: Error?) in
@@ -126,6 +125,8 @@ class ViewController: UIViewController {
             let emailAddress = user.profile?.email
             
             self.sendIDTokenToServer(idToken: idToken) { data in
+                print(idToken)
+
                 print(data )
             }
         }
